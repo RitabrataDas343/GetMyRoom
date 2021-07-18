@@ -1,0 +1,148 @@
+ {%load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        {% block title %}GetMyRoom{% endblock %}
+    </title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cookie&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js'></script>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+    body,
+    html {
+        font-family: 'Poppins', sans-serif;
+        background-image: url(https://images.unsplash.com/photo-1616254717885-62fc52b4ef38?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjR8fGJsdXJyZWQlMjBzY2VuZXJ5fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+    }
+    
+    .dropdown-content {
+        top: 53px !important;
+        width: 190px !important;
+    }
+    
+    .footer {
+        background-color: aqua;
+    }
+</style>
+
+<body>
+    <div class="bg-image"></div>
+    <nav class="blue">
+        <div class="nav-wrapper container blue">
+            <a href="/" class="brand-logo left" style="font-family: 'Cookie'; font-size: 2.5 rem"><i class="material-icons" style="font-size:2rem">hotel</i>GetMyRoom</a>
+            <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/" style="font-size: 18px; font-weight: bolder;">Home</a></li>
+                <li><a href="/contact-us" style="font-size: 18px; font-weight: bolder;">Contact Us</a></li>
+                {% if not request.session.username %}
+                <li><a class="dropdown-button" href="#!" data-activates='dropdown1' style="font-size: 18px; font-weight: bolder;">Login / Register<i class="material-icons right">arrow_drop_down</i></a></li>
+                {% else %}
+                <li><a class="dropdown-button" href="#!" data-activates='dropdown2' style="font-size: 18px; font-weight: bolder;">Account<i class="material-icons right">arrow_drop_down</i></a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <ul id="slide-out" class="side-nav">
+
+        <li><a href="/">Home</a></li>
+        <li><a href="/contact-us">Contact Us</a></li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li style="margin-left:18px">
+                    <a class="collapsible-header">Account<i class="material-icons right">arrow_drop_down</i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            {% if not request.session.username %}
+                            <li><a href="/user/login" class="blue-text"><i class="material-icons left red-text text-lighten-2">person</i> Customer</a></li>
+                            <li class="divider" tabindex="-1"></li>
+                            <li><a href="/manager/login1" class="blue-text"><i class="material-icons left red-text text-lighten-2">room_service</i> Room Manager</a></li>
+                            {% else %} {% if request.session.type == 'customer' %}
+                            <li><a href="/user/dashboard"><i class="material-icons left red-text text-lighten-2">dashboard</i> Dashboard</a></li>
+                            {% else %}
+                            <li><a href="/manager/dashboard1"><i class="material-icons left red-text text-lighten-2">dashboard</i> Dashboard</a></li>
+                            {% endif %}
+                            <li><a href="/logout"><i class="material-icons left red-text text-lighten-2">exit_to_app</i> Logout</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <ul id='dropdown1' class='dropdown-content'>
+        <li><a href="/user/login" class="blue-text" style="background: black; font-size: 18px;"><i class="material-icons left blue-text text-lighten-2">person</i> Customer</a></li>
+        <li class="divider" tabindex="-1"></li>
+        <li><a href="/manager/login1" class="blue-text" style="background: black; font-size: 14px;"><i class="material-icons left blue-text text-lighten-2">room_service</i> Room Manager</a></li>
+    </ul>
+    <ul id='dropdown2' class='dropdown-content'>
+        {% if request.session.type == 'customer' %}
+        <li>
+            <a href="/user/dashboard" class="blue-text" style="background: black;"> <i class="material-icons left blue-text text-lighten-2">dashboard</i>Dashboard</a>
+        </li>
+        {% else %}
+        <li>
+            <a href="/manager/dashboard1" class="blue-text" style="background: black;"> <i class="material-icons left blue-text text-lighten-2">dashboard</i>Dashboard</a>
+        </li>
+        {% endif %}
+        <li>
+            <a href="/logout" class="blue-text" style="background: black;"> <i class="material-icons left blue-text text-lighten-2">exit_to_app</i>Logout</a>
+        </li>
+    </ul>
+    {% block content %} {%endblock %}
+    <footer class="page-footer blue">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text" style="font-family: 'Cookie'; font-size: 40px;">GetMyRoom</h5>
+                    <p class="grey-text text-lighten-4" style="font-family: 'Cookie'; font-size: 30px;">The beautiful rooms we offer, the best you can get</p>
+                    <p class="grey-text text-lighten-4 ">Made with love by <a style="color: black; font-weight: bold; text-decoration: none; " href="https://www.instagram.com/t.h.e.s.k.y.w.a.l.k.e.r/ ">Ritabrata Das</a><i class="material-icons left
+                        yellow-text text-lighten-2 ">favorite</i></p>
+                </div>
+                <div class="col l4 offset-l2 s12 ">
+                    <h5 class="white-text " style="font-family: 'Pattaya', sans-serif; ">Important Links</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3 " href="/ " style="font-size: 20px;">Home</a></li>
+                        <li><a class="grey-text text-lighten-3 " href="/contact-us " style="font-size: 20px;">Contact Us</a></li>
+                        {% if not request.session.username %} {% if request.session.type == 'customer' %}
+                        <li><a class="grey-text text-lighten-3 " href="/user/login " style="font-size: 20px;">Customer</a></li>
+                        {% else %}
+                        <li><a class="grey-text text-lighten-3 " href="/manager/login1 " style="font-size: 20px;">Room Manager</a></li>
+                        {% endif %} {% else %}
+                        <li><a class="grey-text text-lighten-3 " href="/logout " style="font-size: 20px;">Logout</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright ">
+            <div class="container center ">
+                <a href="https://github.com/RitabrataDas343/GetMyRoom " style="text-decoration: none; color: rgb(0, 255, 191); font-family: 'Oswald', sans-serif; letter-spacing: 1px; font-size: 20px; "> GetMyRoom 2021 | Made by Ritabrata Das </a>
+            </div>
+        </div>
+    </footer>
+    <!-- Compiled and minified JavaScript -->
+    <script>
+        $(".button-collapse ").sideNav();
+        $('.dropdown-button').dropdown({
+            hover: true
+        });
+    </script>
+</body>
+
+</html>

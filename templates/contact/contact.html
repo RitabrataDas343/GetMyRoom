@@ -1,0 +1,60 @@
+{% extends 'base/base.html'%} {% block content%}
+
+<head>
+    <title>Contact</title>
+    <style>
+        .card-panel {
+            margin-top: 10%;
+            margin-bottom: 10%;
+            border-radius: 25px;
+            background-image: linear-gradient(145deg, #ee0979, #ff6a00);
+            padding: 100px;
+        }
+        
+         ::placeholder {
+            /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: yellow;
+            opacity: 1;
+            /* Firefox */
+        }
+        
+         :-ms-input-placeholder {
+            /* Internet Explorer 10-11 */
+            color: yellow;
+        }
+        
+         ::-ms-input-placeholder {
+            /* Microsoft Edge */
+            color: yellow;
+        }
+    </style>
+</head>
+<div class="row">
+    <div class="col l6 offset-l3 m8 offset-m2 s12">
+        <div class="card-panel">
+            {% if message%}
+            <p class="yellow-text center" style="font-size: 20px; font-weight: bolder;">{{message}}</p>
+            {%endif%}
+            <h4 class="center" style="font-weight: bolder; color: white;">Contact Us</h4>
+            <form action="/contact-us" method="POST">
+                {% csrf_token %}
+                <div class="input-field">
+                    <input type="text" name="name" id="username" required=" " placeholder="Enter your Name">
+                    <label for="username" style="color: black;">Name</label>
+                </div>
+                <div class="input-field">
+                    <input type="email" name="email" id="email" required=" " placeholder="Enter your E-mail">
+                    <label for="username" style="color: black;">Email</label>
+                </div>
+                <div class="input-field">
+                    <textarea id="textarea1" class="materialize-textarea" name="message" data-length="1000" required=" " placeholder="Any message you have for us?"></textarea>
+                    <label for="textarea1" style="color: black;">Message</label>
+                </div>
+                <div class="center">
+                    <input type="submit" value="submit" name="submit" class="btn yellow" style="color: black; font-size: 15px; font-weight: 600;">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}

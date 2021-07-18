@@ -1,0 +1,27 @@
+{% extends 'base/base.html'%} {% block content%}
+<style>
+    .card-panel {
+        padding: 50px;
+        margin-top: 15%;
+        margin-bottom: 20%;
+        border-radius: 25px;
+        background-image: linear-gradient(145deg, #4568DC, #B06AB3);
+        height: 50%;
+        padding-bottom: 50px;
+    }
+</style>
+<div class="row">
+    <div class="col l6 offset-l3 m8 offset-m2 s12">
+        <div class="card-panel center">
+            <p class="yellow-text center" style="font-size: 20px; font-weight: bolder;">You have been sucessfully logged out.</p>
+            <h3 class="center" style="margin:3px; color: white ;margin-bottom: 20px;"><b>Login as: </b></h3>
+            <div class="center" style="display: inline; margin-bottom: 30px;">
+                <a href="/user/login" class="btn-large" style="text-transform: capitalize;font-size: 1.3rem; background: #1100ff; color: #ffffff; margin-right: 50px;">Customer </a>
+            </div>
+            <div class="center" style="display: inline; margin-bottom: 30px;">
+                <a href="/manager/login1" class="btn-large" style="text-transform: capitalize;font-size: 1.3rem; background: #1100ff; color: #ffffff;">Room Manager </a>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
