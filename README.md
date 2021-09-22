@@ -37,7 +37,7 @@ This app will allow you to enable the entire hotel management system, available 
     ```
     python3 manage.py makemigrations
 
-    python3 manage.py migrate
+    python3 manage.py migrate --run-syncdb
 
     ```
 6. Run the development server
