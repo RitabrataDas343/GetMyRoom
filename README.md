@@ -56,4 +56,4 @@ This app uses the following technologies:
 + Materialise CSS
 + Python(Django)
 
-If you want to contribute to this project, then you are very much welcome.
+If you want to contribute to this project, then you are very much welcome to do that.
